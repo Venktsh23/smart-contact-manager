@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base::parent(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${loggedInUser.name}">about</title>
+    <style>
+       /* Media query to set padding-left to 0px on small screens */
+       @media (max-width: 546px) {
+            .adjust-padding {
+                padding-left: 0 !important;
+            }
+        }
+    </style>
+    <link rel="stylesheet" data-th-href="@{'output.css'}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+</head>
+<body>
+<div  id="content" >
+<div data-th-if="${loggedInUser}">
+    <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+</div>
+    <div class="pl-0 adjust-padding" style="height: 1000px; padding-left: 260px;">
+        <div class="flex justify-center flex-col items-center">
+    <h1>This is user profile</h1>
+    <a data-th-href="@{'/logout'}">logout</a>
+    <h1 data-th-text="${loggedInUser.email}"></h1>
+    <h1 data-th-if="${loggedInUser}">
+        user loggedIn   user loggedIn  user loggedIn  user loggedIn  user loggedIn user loggedIn  user loggedIn   user loggedIn  user loggedIn user loggedIn
+    </h1>
+</div>
+</div>
+</div>
+<script >
+    //to adjust padding
+        function adjustPadding() {
+            const element = document.querySelector('.adjust-padding');
+            if (window.innerWidth <= 546) {
+                element.style.paddingLeft = '0px';
+            } else {
+                element.style.paddingLeft = '260px';
+            }
+        }
+        window.addEventListener('resize', adjustPadding);
+        window.addEventListener('load', adjustPadding);
+</script>
+</body>
+</html>

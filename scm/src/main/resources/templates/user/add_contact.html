@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" data-th-replace="~{base::parent(~{::#content},~{::title},~{::script})}"
+      xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title data-th-text="${loggedInUser.name}">about</title>
+    <style>
+        /* Media query to set padding-left to 0px on small screens */
+        @media (max-width: 576px) {
+             .adjust-padding {
+                 padding-left: 0 !important;
+             }
+         }
+    </style>
+    <link rel="stylesheet" data-th-href="@{'output.css'}"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+</head>
+<body>
+<div  id="content" >
+    <div data-th-if="${loggedInUser}">
+        <div data-th-replace="~{user/sidebar :: sidebar}"></div>
+    </div>
+    <div class="pl-0 adjust-padding" style="height: 1000px; padding-left: 260px;">
+        <div class=" text-center text-red-600" data-th-if="${param.error}">
+            Invalid username and password.</div>
+        <div  class="text-center text-green-600" data-th-if="${param.submit}">
+            You have been logged out.</div>
+<!--        <div class="flex justify-center flex-col items-center">-->
+        <div class="grid grid-cols-12">
+            <div class="col-span-3"></div>
+<!--            <div class="block p-6 bg-white border-t-4  rounded-lg  hover:bg-gray-200 dark:bg-gray-800  dark:hover:bg-gray-500">-->
+            <div class="col-span-6 w-200">
+                <h1 class="text-center font-bold">Add New Contact</h1>
+            <form  data-th-action="@{'/user/contacts/save-contact'}" method="post" enctype="multipart/form-data" class=" max-w-sm mx-auto">
+                <div class="mb-5 ">
+                    <label for="email" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Contact Email</label>
+                    <input type="email" id="email" name="email" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name@mailcom" required />
+                </div>
+                    <div class="mb-5">
+                        <label for="name" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Contact Name</label>
+                        <input type="text" name="name" id="name" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="name" required />
+                    </div>
+                <div class="mb-5">
+                    <label for="phoneNumber" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Contact Phone</label>
+                    <input type="tel"  pattern="[0-9]{10}" name="phoneNumber" id="phoneNumber" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" required />
+                </div>
+                <div class="mb-5">
+                    <label for="address" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Contact Address</label>
+                    <textarea name="address" id="address" rows="6"   class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"  placeholder="Address of the contact"></textarea>
+                </div>
+                    <div class="mb-5">
+                        <label for="description" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white">Contact Description</label>
+                        <textarea name="description" id="description" rows="6"   class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"  placeholder="Write about your contact..."></textarea>
+                    </div>
+<!--                <div class="flex items-start mb-5">-->
+<!--                    <div class="flex items-center h-5">-->
+<!--                        <input id="terms" type="checkbox" value="" class="w-4 h-4 border border-gray-700 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required />-->
+<!--                    </div>-->
+<!--                    <label for="terms" class="ms-2 text-sm font-bold text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>-->
+<!--                </div>-->
+                <div class="mb-5">
+                    <input type="text" name="linkedInLink" id="linkedInLink" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="http://fb/user1.com"  />
+                </div>
+                <div class="mb-5">
+                    <input type="text" name="websiteLink" id="websiteLink" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="http://website.com"  />
+                </div>
+
+                <div class="mb-5">
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="image">Upload file</label>
+                <input id="image" name="image" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="user_avatar_help"  type="file" required/>
+                </div>
+
+
+                <!--                <div class="flex">-->
+<!--                    <div class="w-full">-->
+<!--                        <div class="mb-5">-->
+<!--                            <input type="text" id="weblink" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="http://website.com"  />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="w-full">-->
+<!--                        <div class="mb-5">-->
+<!--                            <input type="text" id="fblink" class="shadow-sm bg-gray-50 border border-gray-700 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light" placeholder="http://fb/user1.com"  />-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+                <div class="flex justify-center">
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create new contact</button>
+
+
+                </div>
+            </form>
+            </div>
+            </div>
+
+        </div>
+    </div>
+<script >
+    //to adjust padding
+        function adjustPadding() {
+            const element = document.querySelector('.adjust-padding');
+            if (window.innerWidth <= 576) {
+                element.style.paddingLeft = '0px';
+            } else {
+                element.style.paddingLeft = '260px';
+            }
+        }
+        window.addEventListener('resize', adjustPadding);
+        window.addEventListener('load', adjustPadding);
+</script>
+</body>
+</html>
