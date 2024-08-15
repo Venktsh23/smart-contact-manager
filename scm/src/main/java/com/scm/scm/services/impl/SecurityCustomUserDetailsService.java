@@ -10,15 +10,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityCustomUserDetailsService implements UserDetailsService {
     @Autowired
-     private UserRepo userRepo;
+    private UserRepo userRepo;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepo.findByEmail(username).orElseThrow(()-> new UsernameNotFoundException("user not found"));
+        return userRepo.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("user not found"));
     }
-
-
-
 
 
 }

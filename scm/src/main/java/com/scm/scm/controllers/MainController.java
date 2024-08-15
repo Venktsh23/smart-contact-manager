@@ -13,21 +13,21 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class MainController {
 
     @Autowired
-   private UserService userService;
+    private UserService userService;
+
     @ModelAttribute
-    public void addLoggedInUserInformation(Model model, Authentication authentication){
-        if (authentication==null){
+    public void addLoggedInUserInformation(Model model, Authentication authentication) {
+        if (authentication == null) {
             return;
         }
         //get email from authentication by helper method
-        String username= Helper.getEmailOfLoggedInUser(authentication);
+        String username = Helper.getEmailOfLoggedInUser(authentication);
         //get user by email of authentication
-        User user= userService.getUserByEmail(username);
-        if(user==null){
-            model.addAttribute("loggedInUser",null);
-        }
-        else {
-            model.addAttribute("loggedInUser",user);
+        User user = userService.getUserByEmail(username);
+        if (user == null) {
+            model.addAttribute("loggedInUser", null);
+        } else {
+            model.addAttribute("loggedInUser", user);
         }
     }
 }

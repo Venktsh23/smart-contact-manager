@@ -13,10 +13,10 @@
          }
     </style>
     <link rel="stylesheet" data-th-href="@{'output.css'}"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet"/>
 </head>
 <body>
-<div  id="content" >
+<div id="content">
     <div data-th-if="${loggedInUser}">
         <div data-th-replace="~{user/sidebar :: sidebar}"></div>
     </div>
@@ -26,7 +26,7 @@
         </div>
     </div>
 </div>
-<script >
+<script>
     //to adjust padding
         function adjustPadding() {
             const element = document.querySelector('.adjust-padding');

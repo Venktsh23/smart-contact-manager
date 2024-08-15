@@ -24,7 +24,7 @@ public class UserImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        String userId= UUID.randomUUID().toString();
+        String userId = UUID.randomUUID().toString();
         user.setUserId(userId);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRolelist(List.of(AppConstants.ROLE_USER));
@@ -39,7 +39,7 @@ public class UserImpl implements UserService {
 
     @Override
     public Optional<User> updateUser(User user) {
-        User user1=userRepo.findById(user.getUserId()).orElseThrow(()->new ResourceNotFoundException("user not found"));
+        User user1 = userRepo.findById(user.getUserId()).orElseThrow(() -> new ResourceNotFoundException("user not found"));
         user1.setName(user.getName());
         user1.setEmail(user.getEmail());
         user1.setAbout(user.getAbout());
@@ -51,24 +51,24 @@ public class UserImpl implements UserService {
         user1.setProviderUserId(user.getProviderUserId());
         user1.setPhoneVerified(user.isPhoneVerified());
         user1.setProvider(user.getProvider());
-       User user2= userRepo.save(user1);
+        User user2 = userRepo.save(user1);
         return Optional.of(user2);
     }
 
     @Override
     public void deleteUser(String id) {
-        User user1=userRepo.findById(id).orElseThrow(()->new ResourceNotFoundException("user not found"));
+        User user1 = userRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("user not found"));
     }
 
     @Override
     public boolean isUserExist(String userId) {
-        User user1=userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("user not found"));
-        return user1 != null ;
+        User user1 = userRepo.findById(userId).orElseThrow(() -> new ResourceNotFoundException("user not found"));
+        return user1 != null;
     }
 
     @Override
     public boolean isUserExistByEmail(String email) {
-        User user1=userRepo.findByEmail(email).orElseThrow(()->new ResourceNotFoundException("user not found"));
+        User user1 = userRepo.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("user not found"));
         return user1 != null;
     }
 

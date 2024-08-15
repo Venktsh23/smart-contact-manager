@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ContactRepository extends JpaRepository<Contact,String> {
+public interface ContactRepository extends JpaRepository<Contact, String> {
     Page<Contact> findByUser(User user, Pageable pageable);
 //         List<Contact> findByUser(User user);
 
@@ -20,12 +20,11 @@ public interface ContactRepository extends JpaRepository<Contact,String> {
     @Query("SELECT c FROM Contact c WHERE c.user.id = :userId")
     List<Contact> findByUserId(@Param("userId") String userId);
 
-    Page<Contact> findByNameContaining(String name,Pageable pageable);
+    Page<Contact> findByNameContaining(String name, Pageable pageable);
 
-    Page<Contact> findByEmailContaining(String email,Pageable pageable);
+    Page<Contact> findByEmailContaining(String email, Pageable pageable);
 
-    Page<Contact> findByPhoneNumberContaining(String phone,Pageable pageable);
-
+    Page<Contact> findByPhoneNumberContaining(String phone, Pageable pageable);
 
 
 }

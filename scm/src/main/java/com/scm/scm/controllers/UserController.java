@@ -17,15 +17,16 @@ import java.security.Principal;
 public class UserController {
 
     @Autowired
-   private UserService userService;
+    private UserService userService;
+
     //common method to get logged in user
     @RequestMapping(value = "/dashboard")
-    public String dashboard(){
+    public String dashboard() {
         return "user/dashboard";
     }
 
     @RequestMapping(value = "/profile")
-    public String profile(Model model,Authentication authentication){
+    public String profile(Model model, Authentication authentication) {
 
         return "user/profile";
     }

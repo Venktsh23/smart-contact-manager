@@ -19,15 +19,15 @@ public class ImageServiceImpl implements ImageService {
     private Cloudinary cloudinary;
 
     @Override
-    public String uploadService(MultipartFile image)  {
+    public String uploadService(MultipartFile image) {
 
-        String fileName= UUID.randomUUID().toString();
+        String fileName = UUID.randomUUID().toString();
         try {
-            byte[] data=new byte[image.getInputStream().available()];
+            byte[] data = new byte[image.getInputStream().available()];
             image.getInputStream().read(data);
             cloudinary.uploader().upload(
                     data, ObjectUtils.asMap(
-                            "public_id",fileName
+                            "public_id", fileName
                     ));
 
         } catch (IOException e) {

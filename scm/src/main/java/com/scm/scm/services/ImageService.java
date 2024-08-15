@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public interface ImageService {
 
-  public  String uploadService(MultipartFile image);
+    public String uploadService(MultipartFile image);
 
-  public String getUrlFromPublicId(String publicId);
+    public String getUrlFromPublicId(String publicId);
 
 }

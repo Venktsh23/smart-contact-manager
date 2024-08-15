@@ -53,55 +53,55 @@ public class SecurityConfig {
     private OAuthAuthenticationSuccessHandler oAuthAuthenticationSuccessHandler;
 
 
-//    AuthenticationProvider spring security
+    //    AuthenticationProvider spring security
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userDetailsService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());
-        return  authenticationProvider;
+        return authenticationProvider;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-        httpSecurity.authorizeHttpRequests(authorize->{
+        httpSecurity.authorizeHttpRequests(authorize -> {
             authorize.requestMatchers("user/**").authenticated();
             authorize.anyRequest().permitAll();
-                });
+        });
 
-        httpSecurity.formLogin(formlogin ->{
+        httpSecurity.formLogin(formlogin -> {
             formlogin.loginPage("/login");
-                   formlogin.loginProcessingUrl("/authenticate");
-                   formlogin.successForwardUrl("/user/dashboard");
+            formlogin.loginProcessingUrl("/authenticate");
+            formlogin.successForwardUrl("/user/dashboard");
 //                   formlogin.failureForwardUrl("/login?error=true");
-                   formlogin.usernameParameter("email");
-                   formlogin.passwordParameter("password");
-                   formlogin.failureHandler(new AuthenticationFailureHandler() {
-                       @Override
-                       public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
-                            new DefaultRedirectStrategy().sendRedirect(request,response,"/login");
-                       }
-                   });
+            formlogin.usernameParameter("email");
+            formlogin.passwordParameter("password");
+            formlogin.failureHandler(new AuthenticationFailureHandler() {
+                @Override
+                public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
+                    new DefaultRedirectStrategy().sendRedirect(request, response, "/login");
+                }
+            });
         });
         httpSecurity.csrf(AbstractHttpConfigurer::disable);
-        httpSecurity.logout(formlogout->
+        httpSecurity.logout(formlogout ->
         {
             formlogout.logoutUrl("/logout");
             formlogout.logoutSuccessUrl("/login?logout=true");
         });
 
-        httpSecurity.oauth2Login(oauth2->{
-                    oauth2.loginPage("/login");
-                    oauth2.successHandler(oAuthAuthenticationSuccessHandler);
-                });
+        httpSecurity.oauth2Login(oauth2 -> {
+            oauth2.loginPage("/login");
+            oauth2.successHandler(oAuthAuthenticationSuccessHandler);
+        });
         return httpSecurity.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
 
-        return  new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
 

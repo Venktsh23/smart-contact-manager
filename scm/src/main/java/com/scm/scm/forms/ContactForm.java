@@ -26,13 +26,13 @@ public class ContactForm {
     private String name;
     @Email(message = "Invalid Email Address")
     private String email;
-    @Size(min = 10,max=10, message = "Invalid mobile number")
+    @Size(min = 10, max = 10, message = "Invalid mobile number")
     private String phoneNumber;
     @NotBlank(message = "adress is required")
     private String address;
-//    @NotBlank(message = "description is required")
+    //    @NotBlank(message = "description is required")
     private String description;
-    private boolean favorite=false;
+    private boolean favorite = false;
     private String websiteLink;
     private String linkedInLink;
 

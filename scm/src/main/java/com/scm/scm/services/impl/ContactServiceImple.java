@@ -22,6 +22,7 @@ public class ContactServiceImple implements ContactService {
 
     @Autowired
     private ContactRepository contactRepository;
+
     @Override
     public Contact save(Contact contact) {
         contact.setId(UUID.randomUUID().toString());
@@ -30,7 +31,7 @@ public class ContactServiceImple implements ContactService {
 
     @Override
     public Contact update(Contact contact) {
-        Contact contact1 =new Contact();
+        Contact contact1 = new Contact();
         contact1.setId(contact.getId());
 
         contact1.setName(contact.getName());
@@ -51,36 +52,36 @@ public class ContactServiceImple implements ContactService {
 
     @Override
     public Contact getById(String id) {
-        return contactRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not found!!"));
+        return contactRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found!!"));
     }
 
     @Override
     public void delete(String id) {
-        Contact contact=contactRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("Not Found"));
+        Contact contact = contactRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not Found"));
         contactRepository.delete(contact);
 
     }
 
     @Override
-    public Page<Contact> searchByName(String name,int size,int page,String sortBy,String order) {
-        Sort sort=order.equals("desc")?Sort.by(sortBy).descending() :Sort.by(sortBy).ascending();
-        var pageable=  PageRequest.of(page,size);
+    public Page<Contact> searchByName(String name, int size, int page, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size);
 
-        return contactRepository.findByNameContaining(name,pageable);
+        return contactRepository.findByNameContaining(name, pageable);
     }
 
     @Override
-    public Page<Contact> searchByEmail(String email,int page,int size,String sortBy,String order) {
-        Sort sort=order.equals("desc")?Sort.by(sortBy).descending() :Sort.by(sortBy).ascending();
-        var pageable=  PageRequest.of(page,size);
-        return  contactRepository.findByEmailContaining(email,pageable);
+    public Page<Contact> searchByEmail(String email, int page, int size, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size);
+        return contactRepository.findByEmailContaining(email, pageable);
     }
 
     @Override
-    public Page<Contact> searchByPhoneNumber(String phoneNumber,int page,int size,String sortBy,String order) {
-        Sort sort=order.equals("desc")?Sort.by(sortBy).descending() :Sort.by(sortBy).ascending();
-        var pageable=  PageRequest.of(page,size);
-        return  contactRepository.findByPhoneNumberContaining(phoneNumber,pageable);
+    public Page<Contact> searchByPhoneNumber(String phoneNumber, int page, int size, String sortBy, String order) {
+        Sort sort = order.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size);
+        return contactRepository.findByPhoneNumberContaining(phoneNumber, pageable);
     }
 
     @Override
@@ -92,11 +93,11 @@ public class ContactServiceImple implements ContactService {
 //
 
     @Override
-    public Page<Contact> getByUser(User user, int page,int size,String sortBy,String direction) {
-        Sort sort=direction.equals("desc")?Sort.by(sortBy).descending() :Sort.by(sortBy).ascending();
-        var pageable=  PageRequest.of(page,size);
+    public Page<Contact> getByUser(User user, int page, int size, String sortBy, String direction) {
+        Sort sort = direction.equals("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        var pageable = PageRequest.of(page, size);
 
-        return  contactRepository.findByUser(user,pageable);
+        return contactRepository.findByUser(user, pageable);
     }
 
 

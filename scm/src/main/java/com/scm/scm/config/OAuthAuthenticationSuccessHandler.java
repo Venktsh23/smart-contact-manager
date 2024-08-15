@@ -24,11 +24,12 @@ import java.util.UUID;
 public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     UserRepo userRepo;
-    Logger logger= LoggerFactory.getLogger(OAuthAuthenticationSuccessHandler.class);
+    Logger logger = LoggerFactory.getLogger(OAuthAuthenticationSuccessHandler.class);
+
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-    logger.info("OauthenticationSuccessHandler");
-        DefaultOAuth2User user =(DefaultOAuth2User)authentication.getPrincipal();
+        logger.info("OauthenticationSuccessHandler");
+        DefaultOAuth2User user = (DefaultOAuth2User) authentication.getPrincipal();
 //        new DefaultRedirectStrategy().sendRedirect(request,response,"/user/profile");
 //        logging
 //        logger.info(user.getName());
@@ -38,12 +39,12 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
 //        logger.info(user.getAuthorities().toString());
 
 
-        String email=user.getAttribute("email").toString();
-        String name=user.getAttribute("name").toString();
-        String picture=user.getAttribute("picture").toString();
+        String email = user.getAttribute("email").toString();
+        String name = user.getAttribute("name").toString();
+        String picture = user.getAttribute("picture").toString();
 
 
-        User user1=new User();
+        User user1 = new User();
         user1.setEmail(email);
         user1.setName(name);
         user1.setProfilePic(picture);
@@ -56,12 +57,12 @@ public class OAuthAuthenticationSuccessHandler implements AuthenticationSuccessH
         user1.setRolelist(List.of(AppConstants.ROLE_USER));
         user1.setAbout("This account is created using google...");
 
-       User user2= userRepo.findByEmail(email).orElse(null);
-       if(user2 == null){
-           userRepo.save(user1);
-           logger.info("user saved"+email);
-       }
-        new DefaultRedirectStrategy().sendRedirect(request,response,"/user/profile");
+        User user2 = userRepo.findByEmail(email).orElse(null);
+        if (user2 == null) {
+            userRepo.save(user1);
+            logger.info("user saved" + email);
+        }
+        new DefaultRedirectStrategy().sendRedirect(request, response, "/user/profile");
 
     }
 }

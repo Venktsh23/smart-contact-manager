@@ -14,25 +14,25 @@ import java.security.Principal;
 
 public class Helper {
 
-    public static String getEmailOfLoggedInUser(Authentication authentication){
-        Logger logger= LoggerFactory.getLogger(Helper.class);
+    public static String getEmailOfLoggedInUser(Authentication authentication) {
+        Logger logger = LoggerFactory.getLogger(Helper.class);
 //        DefaultOAuth2User user =(DefaultOAuth2User)authentication.getPrincipal();
 //        AuthenticationPrincipal principal = (AuthenticationPrincipal) authentication.getPrincipal();
-        if(authentication instanceof OAuth2AuthenticationToken){
+        if (authentication instanceof OAuth2AuthenticationToken) {
             OAuth2AuthenticationToken authToken = (OAuth2AuthenticationToken) authentication;
             String clientId = authToken.getAuthorizedClientRegistrationId();
 
             OAuth2User oauth2User = (OAuth2User) authToken.getPrincipal();
             String username = "";
             //if google
-            if(clientId.equalsIgnoreCase("google")){
+            if (clientId.equalsIgnoreCase("google")) {
                 String email = oauth2User.getAttribute("email");
 //                logger.info(email);
 
                 return email;
             }
 
-        }else{
+        } else {
             return authentication.getName();
         }
         return "";

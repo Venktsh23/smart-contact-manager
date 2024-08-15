@@ -22,6 +22,6 @@ public class UserForm {
     private String password;
     @NotBlank(message = "About is required")
     private String about;
-    @Size(min = 10,max=10, message = "Invalid mobile number")
+    @Size(min = 10, max = 10, message = "Invalid mobile number")
     private String phone;
 }

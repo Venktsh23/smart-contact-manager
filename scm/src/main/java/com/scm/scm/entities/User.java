@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id
     private String userId;
-    @Column(name = "user_name",nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String name;
-    @Column(unique = true,nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
     @Getter(value = AccessLevel.NONE)
     private String password;
@@ -36,7 +36,7 @@ public class User implements UserDetails {
 
     @Getter(value = AccessLevel.NONE)
     //information
-    private boolean enabled=true;
+    private boolean enabled = true;
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 
@@ -45,16 +45,16 @@ public class User implements UserDetails {
     private String providerUserId;
 
     @ToString.Exclude
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY,orphanRemoval = true)
-    private List<Contact> contacts=new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<Contact> contacts = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
-    private List<String> rolelist=new ArrayList<>();
+    private List<String> rolelist = new ArrayList<>();
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Collection<SimpleGrantedAuthority> roles= rolelist.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
+        Collection<SimpleGrantedAuthority> roles = rolelist.stream().map(role -> new SimpleGrantedAuthority(role)).collect(Collectors.toList());
         return roles;
     }
 

@@ -23,7 +23,7 @@ public class Contact {
     private String picture;
     @Column(length = 3000)
     private String description;
-    private boolean favorite=false;
+    private boolean favorite = false;
     private String websiteLink;
     private String linkedInLink;
 
@@ -31,8 +31,8 @@ public class Contact {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-    private List<SocialLink> socialLinks=new ArrayList<>();
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<SocialLink> socialLinks = new ArrayList<>();
 
 
 }
